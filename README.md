@@ -1,6 +1,57 @@
-# Stripe Payment Server
+# Stripe Backend
 
-A dedicated Express.js server for handling Stripe payments, subscriptions, and Firebase integration for the SaudePilates app.
+A serverless backend for handling Stripe payments and webhooks, ready for Netlify deployment.
+
+## Features
+
+- Stripe checkout session creation
+- Webhook handling for payment events
+- Firebase integration for subscription management
+- Production-ready configuration
+
+## Deployment Instructions for Netlify
+
+1. Push your code to GitHub
+2. Create a new site in Netlify connected to your GitHub repository
+3. Configure the following build settings:
+   - Build command: `npm run build`
+   - Publish directory: `public`
+
+4. Set up the required environment variables in Netlify:
+   - `NODE_ENV` - Set to "production"
+   - `STRIPE_SECRET_KEY_PROD` - Your Stripe production secret key
+   - `STRIPE_WEBHOOK_SECRET_PROD` - Your Stripe production webhook secret
+   - `FIREBASE_PRIVATE_KEY` - Your Firebase service account private key
+   - `FIREBASE_CLIENT_EMAIL` - Your Firebase service account client email
+   - `STRIPE_PRODUCT_ID_ANUAL` - Your Stripe annual plan product ID
+   - `STRIPE_PRODUCT_ID_TRIMESTRAL` - Your Stripe quarterly plan product ID
+   - `STRIPE_PRODUCT_ID_MENSAL` - Your Stripe monthly plan product ID
+
+5. After deployment, your API endpoints will be available at:
+   - Webhook: `https://your-netlify-site.netlify.app/api/webhook`
+   - Create checkout session: `https://your-netlify-site.netlify.app/api/create-checkout-session`
+
+6. Update your Stripe webhook settings in the Stripe Dashboard to point to the new production webhook URL.
+
+## Local Development
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Create a `.env` file with the required variables (see above)
+4. Start the development server: `npm run dev`
+
+## Important Notes
+
+- Make sure your Stripe webhook secret is correctly set in your environment variables
+- Ensure Firebase credentials are properly configured
+- For local testing of webhooks, use Stripe CLI or a service like ngrok
+
+## Project Structure
+
+- `netlify/functions/api.js` - The serverless function that handles all API endpoints
+- `firebase-config.js` - Firebase configuration and initialization
+- `server.js` - Express server (used for local development)
+- `public/` - Static assets
 
 ## Setup
 
